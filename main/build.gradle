@@ -21,3 +21,30 @@ task executableFatJar(type: Jar) {
     with jar
 }
 */
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.20"
+    compile "io.ktor:ktor-server:$ktor_version"
+    compile "io.ktor:ktor-server-netty:$ktor_version"
+    compile 'com.github.vinhkhuc:jfasttext:0.4'
+    compile "org.nield:kotlinstatistics:0.3.0"
+    compile 'com.edwardraff:JSAT:0.0.9'
+    compile 'com.github.salomonbrys.kotson:kotson:2.5.0'
+    compile 'com.squareup.okhttp3:okhttp:3.12.0'
+    compile 'org.jsoup:jsoup:1.11.3'
+    compile group: 'com.robbypond', name: 'boilerpipe', version: '1.2.3'
+    compile 'com.github.kwebio:core:0.3.15'
+
+    def dl4_version = '1.0.0-beta3'
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-core', version: dl4_version
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-nlp', version: dl4_version
+    compile group: 'org.nd4j', name: 'nd4j-native-platform', version: dl4_version
+    compile group: 'org.datavec', name: 'datavec-api', version: dl4_version
+    compile group: 'org.datavec', name: 'datavec-data-nlp', version: dl4_version
+//    compile group: 'org.datavec', name: 'datavec-transformations', version: dl4_version
+
+    def bliki_version = '3.1.0'
+    compile group: 'info.bliki.wiki', name: 'bliki-addons', version: bliki_version
+    compile group: 'info.bliki.wiki', name: 'bliki-core', version: bliki_version
+
+}
