@@ -23,8 +23,6 @@ task executableFatJar(type: Jar) {
 */
 
 dependencies {
-    compile "io.ktor:ktor-server:$ktor_version"
-    compile "io.ktor:ktor-server-netty:$ktor_version"
     compile 'com.github.vinhkhuc:jfasttext:0.4'
     compile "org.nield:kotlinstatistics:0.3.0"
     compile 'com.edwardraff:JSAT:0.0.9'
