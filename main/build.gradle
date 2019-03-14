@@ -31,6 +31,8 @@ dependencies {
     compile 'org.jsoup:jsoup:1.11.3'
     compile group: 'com.robbypond', name: 'boilerpipe', version: '1.2.3'
     compile 'com.github.kwebio:core:0.3.15'
+    // TODO Expose scala version to JVM build config consumers
+    compile 'org.scalaj:scalaj-http_2.12:2.4.1'
 
     def dl4_version = '1.0.0-beta3'
     compile group: 'org.deeplearning4j', name: 'deeplearning4j-core', version: dl4_version
