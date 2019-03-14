@@ -12,9 +12,9 @@ class YandexSearchEngine(private val yandexUrl: String) extends PagedSearchEngin
 
   override def performSearch(searchQuery: String, page: Int): List[YandexSearchResult] = {
     Http(yandexUrl)
+      .option(HttpOptions.connTimeout(10000))
       .param("text", searchQuery)
       .param("page", page.toString)
-      .option(HttpOptions.connTimeout(10000))
       .execute { stream =>
         val doc = docBuilderFactory.newDocumentBuilder().parse(stream)
         doc.getElementsByTagName("group").list.map { node =>

@@ -1,9 +1,6 @@
-import java.net.URI
-
-import de.l3s.boilerpipe.extractors.CommonExtractors
-import de.l3s.boilerpipe.sax.{HTMLDocument, HtmlArticleExtractor}
 import org.apache.spark.sql.{Dataset, SparkSession}
-import org.jsoup.Jsoup
+import scalaj.http.{Http, HttpOptions}
+import tech.gaggle.algo.cleaning.WebpageCleaner
 import tech.gaggle.algo.textrank.TextRank
 import tech.gaggle.extapi.search.YandexSearchEngine
 import tech.gaggle.extapi.search.YandexSearchEngine.YandexSearchResult
@@ -19,11 +16,7 @@ val ss = SparkSession.builder.appName("Yelp Analysis").getOrCreate()
 import ss.implicits._
 
 def isolatePage(url: String, pageContentHint: Option[String]): String = {
-  val html = HtmlArticleExtractor.INSTANCE.process(new HTMLDocument(pageContentHint.get),
-    URI.create(url),
-    CommonExtractors.ARTICLE_EXTRACTOR)
-
-  Jsoup.parse(html).text()
+  new WebpageCleaner().clean(pageContentHint.get -> url)
 }
 
 def pageToKeywords(page: String): List[String] = {
@@ -38,4 +31,13 @@ def querySearchEngine(keywords: List[String]): Dataset[YandexSearchResult] = {
   }
 
   searchResults.toDS()
+}
+
+def downloadAndCleanSearchResult(result: YandexSearchResult): String = {
+  def downloaded = Http(result.url)
+    .option(HttpOptions.connTimeout(10000))
+    .asString
+    .body
+
+  new WebpageCleaner().clean(downloaded -> result.url)
 }
